@@ -121,7 +121,7 @@ export default function CardInvestigation({
         </button>
 
         {isMenuOpen && (
-          <div className="absolute top-12 right-0 w-32 bg-[var(--black)] border border-[var(--dark-gray)] rounded-[6px] shadow-md">
+          <div className="absolute top-12 right-0 w-32 bg-[var(--black)] border border-[var(--dark-gray)] rounded-[6px] shadow-md z-50">
             {investigation.active && (
               <button
                 className="w-full flex items-center text-left px-4 py-2 text-[var(--white)] hover:bg-[var(--dark-gray)]"

@@ -18,3 +18,7 @@ body {
   background: var(--black);
   font-family: "Inter", sans-serif;
 }
+
+.static-route-icon {
+  display: none;
+}

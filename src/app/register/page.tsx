@@ -10,6 +10,7 @@ import { supabase } from "@/lib/supabase-client";
 
 export default function Register() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [url, setUrl] = useState<string>("");
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -57,6 +58,8 @@ export default function Register() {
         .single();
 
       if (supabaseError) throw supabaseError;
+
+      setUrl(url_path);
 
       setIsModalOpen(true);
     } catch (error) {
@@ -130,7 +133,7 @@ export default function Register() {
         </form>
       </div>
 
-      {isModalOpen && <LinkModal link="Sugestão-url" success={true} />}
+      {isModalOpen && <LinkModal link={url} success={true} />}
     </div>
   );
 }
