@@ -1,5 +1,6 @@
 "use client";
 
+import { supabase } from "@/lib/supabase-client";
 import { useState } from "react";
 
 interface CardInvestigationProps {
@@ -20,6 +21,46 @@ export default function CardInvestigation({
   investigation,
 }: CardInvestigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const deleteInvestigation = async (id: string) => {
+    const { error } = await supabase
+      .from("investigations")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    window.location.reload();
+  };
+
+  const finishInvestigation = async (id: string) => {
+    const { error } = await supabase
+      .from("investigations")
+      .update({ active: false })
+      .eq("id", id);
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    window.location.reload();
+  };
+
+  const formatDate = (dateString: string) => {
+    const cleanedDate = dateString.split(".")[0];
+
+    const date = new Date(cleanedDate);
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  };
   let icon = "";
   switch (investigation.domain) {
     case "facebook.lat":
@@ -64,11 +105,11 @@ export default function CardInvestigation({
       <div className="flex gap-3 text-xs mt-1 text-[var(--dark-gray)]">
         <div>
           <p>Criado em</p>
-          <p className="mt-1">{investigation.created_at}</p>
+          <p className="mt-1">{formatDate(investigation.created_at)}</p>
         </div>
         <div>
           <p>Atualizado em</p>
-          <p className="mt-1">{investigation.updated_at}7</p>
+          <p className="mt-1">{formatDate(investigation.updated_at)}7</p>
         </div>
       </div>
       <div className="relative">
@@ -81,14 +122,22 @@ export default function CardInvestigation({
 
         {isMenuOpen && (
           <div className="absolute top-12 right-0 w-32 bg-[var(--black)] border border-[var(--dark-gray)] rounded-[6px] shadow-md">
-            <button className="w-full flex items-center text-left px-4 py-2 text-[var(--white)] hover:bg-[var(--dark-gray)]">
-              <img src="/no-symbol.svg" alt="" className="mb-1 mr-1" />
-              Encerrar
-            </button>
+            {investigation.active && (
+              <button
+                className="w-full flex items-center text-left px-4 py-2 text-[var(--white)] hover:bg-[var(--dark-gray)]"
+                onClick={() => finishInvestigation(investigation.id)}
+              >
+                <img src="/no-symbol.svg" alt="" className="mb-1 mr-1" />
+                Encerrar
+              </button>
+            )}
 
             <div className="h-[1px] bg-[var(--dark-gray)]"></div>
 
-            <button className="w-full flex items-center text-left px-4 py-2 text-red-500 hover:bg-[var(--dark-gray)]">
+            <button
+              className="w-full flex items-center text-left px-4 py-2 text-red-500 hover:bg-[var(--dark-gray)]"
+              onClick={() => deleteInvestigation(investigation.id)}
+            >
               <img src="/trash.svg" alt="" className="mb-1 mr-1" />
               Excluir
             </button>

@@ -12,6 +12,7 @@ export default function TextField({
   placeholder,
   rows = 4,
   className,
+  ...props
 }: TextFieldProps) {
   return (
     <div className={className}>
@@ -21,6 +22,7 @@ export default function TextField({
         placeholder={placeholder}
         rows={rows}
         className={`w-full rounded-[6px] border-2 border-[var(--blue)] bg-zinc-900 p-2 resize-none`}
+        {...props}
       ></textarea>
 
       {helperText && (

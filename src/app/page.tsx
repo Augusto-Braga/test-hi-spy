@@ -1,49 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./components/button";
 import CardInvestigation from "./components/card-investigation";
 import MessageComponent from "./components/message";
 import PlusCircle from "./components/plus-circle";
 import Link from "next/link";
-
-const investigations = [
-  // {
-  //   id: "1",
-  //   name: "test",
-  //   domain: "airbnb.oficial.cam",
-  //   access: 0,
-  //   active: true,
-  //   url_path: "Sugestão-url",
-  //   url_redirect: "google.com",
-  //   created_at: "09/01/1997",
-  //   updated_at: "09/01/1997",
-  // },
-  // {
-  //   id: "2",
-  //   name: "test2",
-  //   domain: "whatsapp.c0m",
-  //   access: 0,
-  //   active: false,
-  //   url_path: "Sugestão-url",
-  //   url_redirect: "google.com",
-  //   created_at: "09/01/1997",
-  //   updated_at: "09/01/1997",
-  // },
-  // {
-  //   id: "3",
-  //   name: "test3",
-  //   domain: "facebook.lat",
-  //   access: 0,
-  //   active: true,
-  //   url_path: "Sugestão-url",
-  //   url_redirect: "google.com",
-  //   created_at: "09/01/1997",
-  //   updated_at: "09/01/1997",
-  // },
-];
+import { supabase } from "@/lib/supabase-client";
 
 export default function Home() {
+  const [investigations, setInvestigations] = useState([]);
+
+  const getInvestigations = async () => {
+    const { data, error } = await supabase.from("investigations").select();
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    setInvestigations(data);
+  };
+
+  useEffect(() => {
+    getInvestigations();
+  }, []);
+
   const justifyContent = investigations.length === 0 ? "justify-center" : "";
 
   const [searchQuery, setSearchQuery] = useState("");

@@ -10,6 +10,7 @@ export default function Input({
   helperText,
   placeholder,
   className,
+  ...props
 }: InputProps) {
   return (
     <div className={className}>
@@ -19,6 +20,7 @@ export default function Input({
         type="text"
         placeholder={placeholder}
         className={`mt-2 w-full rounded-[6px] border-2 border-[var(--blue)] bg-zinc-900 p-1`}
+        {...props}
       ></input>
 
       {helperText && (
