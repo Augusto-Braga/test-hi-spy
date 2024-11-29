@@ -38,6 +38,17 @@ export default function Register() {
   //   console.log({ name, domain, url_path, url_redirect });
   // };
 
+  const domains = [
+    {
+      value: "airbnb.oficial.cam",
+      label: "airbnb.oficial.cam",
+      icon: "/airbnb.svg",
+    },
+    { value: "whatsapp.c0m", label: "whatsapp.c0m", icon: "/zap.svg" },
+    { value: "facebook.lat", label: "facebook.lat", icon: "/face.svg" },
+  ];
+  const [domain, setDomain] = useState("airbnb.oficial.cam");
+
   return (
     <div className="flex flex-col flex-grow items-center text-[var(--white)]">
       <div className="w-2/5 mt-10">
@@ -53,7 +64,27 @@ export default function Register() {
         />
         <div className="flex w-full items-center gap-2 mt-5">
           <div className="flex-1 h-36">
-            <Input label="Escolha um domínio" />
+            <p className="mb-2 text-[var(--white)]">Selecione um domínio</p>
+            <select
+              value={domain}
+              onChange={(e) => setDomain(e.target.value)}
+              className="mt-2 w-full rounded-[6px] border-2 border-[var(--blue)] bg-zinc-900 p-1"
+            >
+              {domains.map((item) => (
+                <option
+                  key={item.value}
+                  value={item.value}
+                  className="flex items-center gap-2"
+                >
+                  <img
+                    src={item.icon}
+                    alt={item.label}
+                    className="w-5 h-5 mr-2"
+                  />
+                  {item.label}
+                </option>
+              ))}
+            </select>
           </div>
           <p className="h-12">/</p>
           <div className="flex-1 h-36">
