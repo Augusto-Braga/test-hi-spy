@@ -12,7 +12,10 @@ export default function Home() {
   const [investigations, setInvestigations] = useState([]);
 
   const getInvestigations = async () => {
-    const { data, error } = await supabase.from("investigations").select();
+    const { data, error } = await supabase
+      .from("investigations")
+      .select()
+      .order("created_at", { ascending: true });
     if (error) {
       console.error(error);
       return;
@@ -37,7 +40,7 @@ export default function Home() {
       {investigations.length === 0 ? (
         <MessageComponent />
       ) : (
-        <div className="w-3/4 grid gap-4 mt-10 text-[var(--white)] overflow-auto">
+        <div className="w-3/4 grid gap-4 mt-10 text-[var(--white)]">
           <div className="w-full flex items-center justify-between mb-2">
             <h2 className="text-2xl">Investigações</h2>
             <Link href={"/register"}>
