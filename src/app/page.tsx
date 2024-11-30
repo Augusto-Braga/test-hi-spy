@@ -6,7 +6,8 @@ import MessageComponent from "./components/message";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase-client";
 import IInvestigation from "./types/investigation";
-import { Button } from "@/components/ui/button";
+import Button from "./components/button";
+import PlusCircle from "./components/plus-circle";
 
 export default function Home() {
   const [investigations, setInvestigations] = useState<IInvestigation[]>([]);
@@ -45,7 +46,10 @@ export default function Home() {
           <div className="w-full flex items-center justify-between mb-2">
             <h2 className="text-2xl">Investigações</h2>
             <Link href={"/register"}>
-              <Button>Nova investigação</Button>
+              <Button icon={<PlusCircle />}>
+                {" "}
+                <span className="hidden sm:block">Nova investigaçãoaa</span>
+              </Button>
             </Link>
           </div>
           <input
