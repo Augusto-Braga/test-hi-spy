@@ -12,8 +12,6 @@ export default function Home() {
   const [investigations, setInvestigations] = useState<IInvestigation[]>([]);
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; // Exibir 5 itens por página
 
   const getInvestigations = async () => {
     const { data, error } = await supabase
@@ -32,28 +30,9 @@ export default function Home() {
     investigation.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const totalPages = Math.ceil(filteredInvestigations.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentInvestigations = filteredInvestigations.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
   useEffect(() => {
     getInvestigations();
   }, []);
-
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const handlePrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
 
   const justifyContent = investigations.length === 0 ? "justify-center" : "";
 
@@ -75,31 +54,12 @@ export default function Home() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          {currentInvestigations.map((investigation) => (
+          {filteredInvestigations.map((investigation) => (
             <CardInvestigation
               key={investigation.id}
               investigation={investigation}
             />
           ))}
-          <div className="flex justify-between mt-4">
-            <Button
-              onClick={handlePrevPage}
-              disabled={currentPage === 1}
-              className="px-4 py-2"
-            >
-              Anterior
-            </Button>
-            <span className="text-lg">
-              Página {currentPage} de {totalPages}
-            </span>
-            <Button
-              onClick={handleNextPage}
-              disabled={currentPage === totalPages}
-              className="px-4 py-2"
-            >
-              Próxima
-            </Button>
-          </div>
         </div>
       )}
     </div>
