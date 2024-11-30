@@ -2,19 +2,10 @@
 
 import { supabase } from "@/lib/supabase-client";
 import { useState } from "react";
+import IInvestigation from "../types/investigation";
 
 interface CardInvestigationProps {
-  investigation: {
-    id: string;
-    name: string;
-    domain: string;
-    access: number;
-    active: boolean;
-    url_path: string;
-    url_redirect: string;
-    created_at: string;
-    updated_at: string;
-  };
+  investigation: IInvestigation;
 }
 
 export default function CardInvestigation({

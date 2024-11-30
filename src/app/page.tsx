@@ -7,9 +7,10 @@ import MessageComponent from "./components/message";
 import PlusCircle from "./components/plus-circle";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase-client";
+import IInvestigation from "./types/investigation";
 
 export default function Home() {
-  const [investigations, setInvestigations] = useState([]);
+  const [investigations, setInvestigations] = useState<IInvestigation[]>([]);
 
   const getInvestigations = async () => {
     const { data, error } = await supabase
