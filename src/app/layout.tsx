@@ -12,12 +12,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="h-screen relative flex flex-col">
+        <div className="min-h-screen flex flex-col">
           <Header />
-          <main className="flex-grow flex">{children}</main>
-          <div className="absolute bottom-0 w-full">
-            <Footer />
-          </div>
+          <main className="flex-grow mb-5">{children}</main>
+          <Footer />
         </div>
       </body>
     </html>
