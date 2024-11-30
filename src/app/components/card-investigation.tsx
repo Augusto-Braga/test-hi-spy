@@ -52,6 +52,7 @@ export default function CardInvestigation({
 
     return `${day}/${month}/${year}`;
   };
+
   let icon = "";
   switch (investigation.domain) {
     case "facebook.lat":
@@ -78,62 +79,66 @@ export default function CardInvestigation({
   };
 
   return (
-    <div className="w-full h-16 px-10 flex items-center justify-between bg-[var(--dark-blue)] text-[var(--white)] hover:bg-[var(--blue)]">
-      <div className="flex w-96">
-        <div className="w-8 h-8 flex items-center justify-center bg-[var(--dark-gray)] rounded-full">
-          <img src={`/${icon}`} alt="zap" />
-        </div>
-        <div className="ml-5">
-          <p className="text-sm">{investigation.name}</p>
-          <p className="text-xs mt-1 text-[var(--dark-gray)]">{`${investigation.access} Acessos`}</p>
+    <div className="w-full p-4 md:px-10 flex flex-col md:flex-row md:items-center justify-between bg-[var(--dark-blue)] text-[var(--white)] hover:bg-[var(--blue)]">
+      <div className="flex flex-col md:flex-row md:w-96">
+        <div className="flex items-center">
+          <div className="w-8 h-8 flex items-center justify-center bg-[var(--dark-gray)] rounded-full">
+            <img src={`/${icon}`} alt="zap" />
+          </div>
+          <div className="ml-5">
+            <p className="text-sm">{investigation.name}</p>
+            <p className="text-xs mt-1 text-[var(--dark-gray)]">{`${investigation.access} Acessos`}</p>
+          </div>
         </div>
         <div
-          className={`ml-2 px-3 h-6 ${chipBg} rounded-[6px] text-xs flex items-center justify-center`}
+          className={`md:mt-0 md:ml-2 px-3 h-6 ${chipBg} rounded-[6px] text-xs flex items-center justify-center self-start`}
         >
           <p>{chipText}</p>
         </div>
       </div>
-      <div className="flex gap-3 text-xs mt-1 text-[var(--dark-gray)]">
-        <div>
-          <p>Criado em</p>
-          <p className="mt-1">{formatDate(investigation.created_at)}</p>
-        </div>
-        <div>
-          <p>Atualizado em</p>
-          <p className="mt-1">{formatDate(investigation.updated_at)}7</p>
-        </div>
-      </div>
-      <div className="relative">
-        <button
-          onClick={toggleMenu}
-          className="w-10 h-10 flex items-center justify-center rounded-[6px] border border-[var(--dark-gray)] bg-[var(--blue)]"
-        >
-          <p>...</p>
-        </button>
-
-        {isMenuOpen && (
-          <div className="absolute top-12 right-0 w-32 bg-[var(--black)] border border-[var(--dark-gray)] rounded-[6px] shadow-md z-50">
-            {investigation.active && (
-              <button
-                className="w-full flex items-center text-left px-4 py-2 text-[var(--white)] hover:bg-[var(--dark-gray)]"
-                onClick={() => finishInvestigation(investigation.id)}
-              >
-                <img src="/no-symbol.svg" alt="" className="mb-1 mr-1" />
-                Encerrar
-              </button>
-            )}
-
-            <div className="h-[1px] bg-[var(--dark-gray)]"></div>
-
-            <button
-              className="w-full flex items-center text-left px-4 py-2 text-red-500 hover:bg-[var(--dark-gray)]"
-              onClick={() => deleteInvestigation(investigation.id)}
-            >
-              <img src="/trash.svg" alt="" className="mb-1 mr-1" />
-              Excluir
-            </button>
+      <div className="flex justify-between md:justify-end items-center mt-4 md:mt-0 w-full md:w-auto">
+        <div className="flex gap-3 text-xs text-[var(--dark-gray)]">
+          <div>
+            <p>Criado em</p>
+            <p className="mt-1">{formatDate(investigation.created_at)}</p>
           </div>
-        )}
+          <div>
+            <p>Atualizado em</p>
+            <p className="mt-1">{formatDate(investigation.updated_at)}</p>
+          </div>
+        </div>
+        <div className="relative ml-4">
+          <button
+            onClick={toggleMenu}
+            className="w-10 h-10 flex items-center justify-center rounded-[6px] border border-[var(--dark-gray)] bg-[var(--blue)]"
+          >
+            <p>...</p>
+          </button>
+
+          {isMenuOpen && (
+            <div className="absolute top-12 right-0 w-32 bg-[var(--black)] border border-[var(--dark-gray)] rounded-[6px] shadow-md z-50">
+              {investigation.active && (
+                <button
+                  className="w-full flex items-center text-left px-4 py-2 text-[var(--white)] hover:bg-[var(--dark-gray)]"
+                  onClick={() => finishInvestigation(investigation.id)}
+                >
+                  <img src="/no-symbol.svg" alt="" className="mb-1 mr-1" />
+                  Encerrar
+                </button>
+              )}
+
+              <div className="h-[1px] bg-[var(--dark-gray)]"></div>
+
+              <button
+                className="w-full flex items-center text-left px-4 py-2 text-red-500 hover:bg-[var(--dark-gray)]"
+                onClick={() => deleteInvestigation(investigation.id)}
+              >
+                <img src="/trash.svg" alt="" className="mb-1 mr-1" />
+                Excluir
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

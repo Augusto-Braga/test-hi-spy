@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Button from "./components/button";
 import CardInvestigation from "./components/card-investigation";
 import MessageComponent from "./components/message";
-import PlusCircle from "./components/plus-circle";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase-client";
 import IInvestigation from "./types/investigation";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const [investigations, setInvestigations] = useState<IInvestigation[]>([]);
@@ -67,7 +66,7 @@ export default function Home() {
           <div className="w-full flex items-center justify-between mb-2">
             <h2 className="text-2xl">Investigações</h2>
             <Link href={"/register"}>
-              <Button icon={<PlusCircle />}>Nova investigação</Button>
+              <Button>Nova investigação</Button>
             </Link>
           </div>
           <input
@@ -85,7 +84,6 @@ export default function Home() {
           <div className="flex justify-between mt-4">
             <Button
               onClick={handlePrevPage}
-              color="secondary"
               disabled={currentPage === 1}
               className="px-4 py-2"
             >
