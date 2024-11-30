@@ -83,7 +83,7 @@ export default function Register() {
 
   return (
     <div className="flex flex-col flex-grow items-center text-[var(--white)]">
-      <div className="w-2/5 mt-10">
+      <div className="w-2/5 min-w-[32rem] mt-10">
         <h1 className="text-3xl mb-10">Nova Investigação</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
