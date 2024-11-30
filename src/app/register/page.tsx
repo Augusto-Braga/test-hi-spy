@@ -12,7 +12,11 @@ export default function Register() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [url, setUrl] = useState<string>("");
 
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       name: "",
       description: "",
@@ -83,9 +87,12 @@ export default function Register() {
         <h1 className="text-3xl mb-10">Nova Investigação</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
-            {...register("name")}
+            {...register("name", {
+              required: "Nome é obrigatório!",
+            })}
             label="Como quer chamar sua nova investigação?"
             placeholder="Dê um nome para a sua investigação"
+            errorMessage={errors.name?.message}
           />
           <TextField
             {...register("description")}
@@ -114,18 +121,30 @@ export default function Register() {
             <p className="h-12">/</p>
             <div className="flex-1 h-36">
               <Input
-                {...register("url_path")}
+                {...register("url_path", {
+                  required: "Url obrigatória!",
+                })}
                 label="Personalize a URL"
-                helperText="Dica: Simule a URL de um site real."
+                helperText={
+                  errors.url_path ? "" : "Dica: Simule a URL de um site real."
+                }
                 placeholder="Sugestão-url"
+                errorMessage={errors.url_path?.message}
               />
             </div>
           </div>
           <Input
-            {...register("url_redirect")}
+            {...register("url_redirect", {
+              required: "Url de redirecionamento obrigatória!",
+            })}
             label="Para onde deseja redirecionar o alvo?"
             placeholder="www.google.com"
-            helperText="Dpois de clicar no link de captura, o alvo será redirecionado para o site acima"
+            helperText={
+              errors.url_redirect
+                ? ""
+                : "Dpois de clicar no link de captura, o alvo será redirecionado para o site acima"
+            }
+            errorMessage={errors.url_redirect?.message}
           />
           <div className="w-full flex justify-end mt-10">
             <Button type="submit">Criar investigação</Button>
