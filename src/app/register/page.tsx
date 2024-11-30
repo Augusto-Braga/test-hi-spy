@@ -3,10 +3,10 @@
 import Input from "../components/input";
 import TextField from "../components/textfield";
 import Button from "../components/button";
-import LinkModal from "../components/link-modal";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "@/lib/supabase-client";
+import SuccessModal from "../components/success-modal";
 
 export default function Register() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -63,7 +63,7 @@ export default function Register() {
 
       if (supabaseError) throw supabaseError;
 
-      setUrl(url_path);
+      setUrl(`${domain}/${url_path}`);
 
       setIsModalOpen(true);
     } catch (error) {
@@ -152,7 +152,7 @@ export default function Register() {
         </form>
       </div>
 
-      {isModalOpen && <LinkModal link={url} success={true} />}
+      <SuccessModal link={url} open={isModalOpen} />
     </div>
   );
 }
