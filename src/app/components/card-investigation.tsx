@@ -79,7 +79,7 @@ export default function CardInvestigation({
 
   return (
     <div className="w-full h-16 px-10 flex items-center justify-between bg-[var(--dark-blue)] text-[var(--white)] hover:bg-[var(--blue)]">
-      <div className="flex">
+      <div className="flex w-96">
         <div className="w-8 h-8 flex items-center justify-center bg-[var(--dark-gray)] rounded-full">
           <img src={`/${icon}`} alt="zap" />
         </div>
