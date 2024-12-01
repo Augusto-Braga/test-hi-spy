@@ -89,6 +89,10 @@ export default function Register() {
           <Input
             {...register("name", {
               required: "Nome é obrigatório!",
+              maxLength: {
+                value: 25,
+                message: "Nome não pode ter mais que 25 caracteres!",
+              },
             })}
             label="Como quer chamar sua nova investigação?"
             placeholder="Dê um nome para a sua investigação"

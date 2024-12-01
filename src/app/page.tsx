@@ -11,8 +11,8 @@ import PlusCircle from "./components/plus-circle";
 
 export default function Home() {
   const [investigations, setInvestigations] = useState<IInvestigation[]>([]);
-
   const [searchQuery, setSearchQuery] = useState("");
+  const [showAll, setShowAll] = useState(false); // Estado para controlar se deve mostrar todos os itens
 
   const getInvestigations = async () => {
     const { data, error } = await supabase
@@ -23,7 +23,6 @@ export default function Home() {
       console.error(error);
       return;
     }
-
     setInvestigations(data);
   };
 
@@ -37,6 +36,10 @@ export default function Home() {
 
   const justifyContent = investigations.length === 0 ? "justify-center" : "";
 
+  const investigationsToShow = showAll
+    ? filteredInvestigations
+    : filteredInvestigations.slice(0, 5); // Exibe até 5 inicialmente
+
   return (
     <div className={`flex-grow flex flex-col items-center ${justifyContent}`}>
       {investigations.length === 0 ? (
@@ -48,7 +51,7 @@ export default function Home() {
             <Link href={"/register"}>
               <Button icon={<PlusCircle />}>
                 {" "}
-                <span className="hidden sm:block">Nova investigaçãoaa</span>
+                <span className="hidden sm:block">Nova investigação</span>
               </Button>
             </Link>
           </div>
@@ -58,12 +61,24 @@ export default function Home() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          {filteredInvestigations.map((investigation) => (
+
+          {investigationsToShow.map((investigation) => (
             <CardInvestigation
               key={investigation.id}
               investigation={investigation}
             />
           ))}
+
+          {/* Mostrar o botão "Ver mais" apenas se houver mais de 5 resultados */}
+          {filteredInvestigations.length > 5 && !showAll && (
+            <div className="w-full flex justify-center mt-4">
+              <div>
+                <Button onClick={() => setShowAll(true)} color="secondary">
+                  Ver mais
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
