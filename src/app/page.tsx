@@ -12,7 +12,7 @@ import PlusCircle from "./components/plus-circle";
 export default function Home() {
   const [investigations, setInvestigations] = useState<IInvestigation[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [showAll, setShowAll] = useState(false); // Estado para controlar se deve mostrar todos os itens
+  const [showAll, setShowAll] = useState(false);
 
   const getInvestigations = async () => {
     const { data, error } = await supabase
@@ -38,7 +38,7 @@ export default function Home() {
 
   const investigationsToShow = showAll
     ? filteredInvestigations
-    : filteredInvestigations.slice(0, 5); // Exibe até 5 inicialmente
+    : filteredInvestigations.slice(0, 5);
 
   return (
     <div className={`flex-grow flex flex-col items-center ${justifyContent}`}>
@@ -69,7 +69,6 @@ export default function Home() {
             />
           ))}
 
-          {/* Mostrar o botão "Ver mais" apenas se houver mais de 5 resultados */}
           {filteredInvestigations.length > 5 && !showAll && (
             <div className="w-full flex justify-center mt-4">
               <div>

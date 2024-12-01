@@ -104,8 +104,8 @@ export default function Register() {
             placeholder="Descreva o objetivo dessa investigação"
             className="mt-5"
           />
-          <div className="flex w-full items-center gap-2 mt-5">
-            <div className="flex-1 h-36">
+          <div className="sm:flex w-full items-center sm:gap-2 mt-5">
+            <div className="flex-1 sm:h-36">
               <p className="mb-2 text-[var(--white)]">Selecione um domínio</p>
               <select
                 {...register("domain")}
@@ -122,8 +122,8 @@ export default function Register() {
                 ))}
               </select>
             </div>
-            <p className="h-12">/</p>
-            <div className="flex-1 h-36">
+            <p className="h-12 hidden sm:block">/</p>
+            <div className="flex-1 h-36 mt-5 sm:mt-0">
               <Input
                 {...register("url_path", {
                   required: "Url obrigatória!",
