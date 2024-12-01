@@ -80,7 +80,7 @@ export default function CardInvestigation({
 
   return (
     <div className="w-full p-4 md:px-10 flex flex-col md:flex-row md:items-center justify-between bg-[var(--dark-blue)] text-[var(--white)] hover:bg-[var(--blue)]">
-      <div className="flex flex-col md:flex-row md:w-96">
+      <div className="flex md:w-96">
         <div className="flex items-center">
           <div className="w-8 h-8 flex items-center justify-center bg-[var(--dark-gray)] rounded-full">
             <img src={`/${icon}`} alt="zap" />
@@ -91,7 +91,7 @@ export default function CardInvestigation({
           </div>
         </div>
         <div
-          className={`md:mt-0 md:ml-2 px-3 h-6 ${chipBg} rounded-[6px] text-xs flex items-center justify-center self-start`}
+          className={`md:mt-0 ml-2 px-3 h-6 ${chipBg} rounded-[6px] text-xs flex items-center justify-center self-start`}
         >
           <p>{chipText}</p>
         </div>
